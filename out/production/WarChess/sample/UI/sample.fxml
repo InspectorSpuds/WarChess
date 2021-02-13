@@ -1,0 +1,5 @@
+<?import javafx.scene.layout.Pane?>
+
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:id="Main" fx:controller="sample.UIControllers.Controller" xmlns:fx="http://javafx.com/fxml" prefHeight="500" prefWidth="500">
+</BorderPane>
