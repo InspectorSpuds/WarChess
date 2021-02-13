@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400" minWidth="400" prefHeight="700.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Tab text="Game">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <BorderPane layoutX="-3.0" layoutY="-1.0" prefHeight="670.0" prefWidth="700.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="-1.0">
+            <top>
+                <VBox prefHeight="55.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                    <HBox alignment="CENTER" prefHeight="58.0" prefWidth="700.0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="196.0" text="Player _'s turn">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                    </HBox>
+                </VBox>
+            </top>
+            <center>
+                <ScrollPane hbarPolicy="ALWAYS" prefHeight="515.0" prefWidth="569.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="496.0" prefWidth="581.0" />
+                </ScrollPane>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER" prefHeight="122.0" prefWidth="700.0" spacing="40.0" BorderPane.alignment="CENTER">
+                    <Button mnemonicParsing="false" text="Go Backwards" />
+                    <Button mnemonicParsing="false" text="Confirm move" />
+                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Go Forward" />
+                </HBox>
+            </bottom></BorderPane>
+        </AnchorPane>
+    </Tab>
+    <Tab text="Game Settings">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <VBox layoutX="257.0" layoutY="113.0" prefHeight="200.0" prefWidth="100.0" />
+         </children></AnchorPane>
+    </Tab>
+</TabPane>

@@ -9,7 +9,7 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class MainContentController implements Initializable {
   @FXML
   GridPane board;
 
