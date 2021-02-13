@@ -1,0 +1,4 @@
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="Main" fx:controller="sample.UIControllers.Controller" xmlns:fx="http://javafx.com/fxml" >
+</Pane>
