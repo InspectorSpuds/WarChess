@@ -4,26 +4,66 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
-    private final String MAINUI_PATH = "UI/MainUI.fxml";
-    private final String ENTRYUI_PATH = "UI/EntryScreen.fxml";
-    private final int MIN_HEIGHT = 600;
-    private final int MIN_WIDTH = 600;
+  private final static String MAINUI_PATH = "UI/MainUI.fxml";
+  private final static String ENTRYUI_PATH = "UI/EntryScreen.fxml";
+  private static final int MIN_HEIGHT = 600;
+  private static final int MIN_WIDTH = 600;
+  private static Stage primary;
+  public static Stage popup = new Stage();
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource(MAINUI_PATH));
-        primaryStage.setTitle("WarChess");
-        primaryStage.setScene(new Scene(root, 600, 600));
-        primaryStage.setMinHeight(MIN_HEIGHT);
-        primaryStage.setMinWidth(MIN_WIDTH);
-        primaryStage.show();
-    }
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    primaryStage.setOnCloseRequest(t-> popup.close());
+    Parent root = FXMLLoader.load(getClass().getResource(ENTRYUI_PATH));
+    primaryStage.setTitle("War Chess");
+    primaryStage.setScene(new Scene(root, 600, 600));
+    primaryStage.setMinHeight(MIN_HEIGHT);
+    primaryStage.setMinWidth(MIN_WIDTH);
+    primary = primaryStage;
+    primaryStage.show();
+  }
 
+  public static void main(String[] args) {
+    launch(Main.class, args);
+  }
 
-    public static void main(String[] args) {
-        launch(Main.class, args);
-    }
+  public static void resetStage(String message) throws Exception {
+    primary.close();
+    Label str = new Label(message);
+    str.setFont(Font.font(20));
+    BorderPane root = new BorderPane();
+    root.setCenter(str);
+    startScreen();
+    popup.setTitle("War Chess");
+    popup.setScene(new Scene(root, 600, 600));
+    popup.setMinHeight(MIN_HEIGHT);
+    popup.setMinWidth(MIN_WIDTH);
+    popup.show();
+  }
+
+  public static void start() throws IOException {
+    Parent root = FXMLLoader.load(Main.class.getResource(MAINUI_PATH));
+    primary.setTitle("War Chess");
+    primary.setScene(new Scene(root, 600, 600));
+    primary.setMinHeight(MIN_HEIGHT);
+    primary.setMinWidth(MIN_WIDTH);
+    primary.show();
+  }
+
+  public static void startScreen() throws Exception {
+    Parent root = FXMLLoader.load(Main.class.getResource(ENTRYUI_PATH));
+    primary.setTitle("War Chess");
+    primary.setScene(new Scene(root, 600, 600));
+    primary.setMinHeight(MIN_HEIGHT);
+    primary.setMinWidth(MIN_WIDTH);
+    primary.show();
+  }
 }

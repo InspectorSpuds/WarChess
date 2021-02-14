@@ -20,6 +20,9 @@ public class BoardTile extends Rectangle {
     super(length, width);
     this.setFill(Color.WHITE);
     this.setStroke(Color.BLACK);
+    this.row = row;
+    this.col = col;
+    this.resetColor();
   }
 
   //graphical methods:
@@ -36,7 +39,6 @@ public class BoardTile extends Rectangle {
         this.setFill(Color.WHITE);
       }
     }
-  //
 
   public void assignLocation(int row, int col) {
     this.row = row;
@@ -74,5 +76,34 @@ public class BoardTile extends Rectangle {
 
   public void movePiece(Component oldPiece) {
     this.piece = oldPiece;
+  }
+
+  public boolean pieceIsKing() {
+    return  false;
+  }
+
+  public Component getComponent() {
+    return this.piece;
+  }
+
+  public boolean isRiverTile() {
+    return false;
+  }
+}
+
+class RiverTile extends BoardTile {
+
+  public RiverTile(int length, int width, int row, int col) {
+    super(length, width, row, col);
+  }
+
+  @Override
+  public boolean isRiverTile() {
+    return true;
+  }
+
+  @Override
+  public void resetColor() {
+      this.setFill(Color.LIGHTBLUE);
   }
 }
