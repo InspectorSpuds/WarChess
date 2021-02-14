@@ -15,7 +15,7 @@
                            <ScrollPane hbarPolicy="ALWAYS" prefHeight="340.0" prefWidth="600.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
                                <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="581.0">
                                     <center>
-                                        <GridPane fx:id="grid" gridLinesVisible="true" BorderPane.alignment="CENTER" />
+                                        <GridPane fx:id = "grid" gridLinesVisible="true" BorderPane.alignment="CENTER"/>
                                     </center>
                                </BorderPane>
                            </ScrollPane>
@@ -23,12 +23,13 @@
                        <bottom>
                            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="500.0" spacing="40.0" BorderPane.alignment="CENTER">
                                <Button mnemonicParsing="false" text="Go Backwards" />
+                               <Button mnemonicParsing="false" text="Confirm Move" />
                                <Button mnemonicParsing="false" text="Go Forward" />
                            </HBox>
                        </bottom>
                        <top>
                            <VBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                               <Label fx:id="nextTurn" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="203.0" text="Player _'s turn">
+                               <Label fx:id = "nextTurn" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="203.0" text="Player _'s turn">
                                    <font>
                                        <Font size="24.0" />
                                    </font>
