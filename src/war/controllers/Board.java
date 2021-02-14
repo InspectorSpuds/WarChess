@@ -22,13 +22,11 @@ public class Board implements Initializable {
     private Text playerText;
 
     private Rectangle buildCell(int x, int y, int size) {
-        BoardTile tile = new BoardTile(board);
+        BoardTile tile = new BoardTile(x, y);
         tile.setX(x * size);
         tile.setY(y * size);
         tile.setWidth(size);
         tile.setHeight(size);
-        tile.setFill(Color.WHITE);
-        tile.setStroke(Color.BLACK);
         return tile;
     }
 

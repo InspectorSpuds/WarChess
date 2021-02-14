@@ -10,23 +10,6 @@ public class BoardPiece extends ImageView {
     TilePiecesBridge bridge;
 
     public BoardPiece() {
-        bridge.piece = this;
 
-        this.setOnDragDetected(event -> {
-            System.out.println("drag detected");
-            Dragboard db = this.startDragAndDrop(TransferMode.ANY);
-
-            ClipboardContent content = new ClipboardContent();
-            content.putImage(this.getImage());
-            db.setContent(content);
-
-            event.consume();
-        });
-
-        this.setOnDragDone(event -> {
-            System.out.println("drag done");
-            bridge.pieces.hidePieces();
-            event.consume();
-        });
     }
 }
