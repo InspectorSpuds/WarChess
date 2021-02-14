@@ -89,6 +89,8 @@ public class BoardTile extends Rectangle {
   public boolean isRiverTile() {
     return false;
   }
+
+  public void render() {}
 }
 
 class RiverTile extends BoardTile {

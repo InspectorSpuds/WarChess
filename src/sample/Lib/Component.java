@@ -1,4 +1,10 @@
 package sample.Lib;
+
+
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
+
 /**
  white king
  white queen
@@ -23,7 +29,7 @@ public abstract class Component {
 
   public abstract boolean canMoveTo(int col, int row); //can the piece move to that col and row?
 
-  public abstract void render(); //puts the image render of the piece on the board
+  public abstract ImagePattern render(); //puts the image render of the piece on the board
 
   //moves the piece
   public void moveTo(int col, int row) {
@@ -57,66 +63,85 @@ public abstract class Component {
   }
 }
 
-  // bishop can only go diagonal (forward or backward), cannot jump over other pieces, has access to only half the squares on the board
-  // kings bishop, queen’s bishop
-  // Due to diagonal movement, each bishop remains on either the white or black squares
-  class Bishop extends Component {
-    @Override
-    public boolean canMoveTo(int col, int row) {
+class Pawn extends Component {
 
-      // checks that coordinal movement always has slope of +/- 1
-      if (((this.getCol() - col) / (this.getRow() - row)) == 1 || (((this.getCol() - col) / (this.getRow() - row)) == -1)) {
-        return true;
-      } else if ((this.getCol() == col) && (this.getRow() == row)) {
-        return false;
-      }
-      return false;
+  @Override
+  public boolean canMoveTo(int col, int row) {
+    if(col <= getCol() + 1 && col >= getCol() - 1 && row <= getRow() + 1 && row >= getRow() - 1) {
+      return true;
     }
-
-    @Override
-    public void render() {
-
-    }
+    return false;
   }
 
-class Queen extends Component {
-    @Override
-    public boolean canMoveTo(int col, int row) {
+  @Override
+  public ImagePattern render() {
+    return null;
+  }
+}
 
-      // checks boundaries if necessary?
-      if (this.getCol() > 24 || this.getCol() < 0 || this.getRow() > 24 || this.getRow() < 0) {
-        return false;
+class Knight extends Component {
 
-      } else if ((this.getCol() == col) && (this.getRow() == row)) {
-        return false;
-      } else if (((this.getCol() - col) / (this.getRow() - row)) == 1 || (((this.getCol() - col) / (this.getRow() - row)) == -1) && (this.getCol() == col) || (this.getRow() == row)) {
-        return true;
+  @Override
+  public boolean canMoveTo(int col, int row) {
+    return false;
+  }
 
-      }
+  @Override
+  public ImagePattern render() {
+    return null;
+  }
+}
+
+class Bishop extends Component {
+  @Override
+  public boolean canMoveTo(int col, int row) {
+    // checks that coordinal movement always has slope of +/- 1
+    if (((this.getCol() - col) / (this.getRow() - row)) == 1 || (((this.getCol() - col) / (this.getRow() - row)) == -1)) {
+      return true;
+    }
       return false;
-    }
+  }
 
-    @Override
-    public void render() {
+  @Override
+  public ImagePattern render() {
+    return new ImagePattern(new Image(" "));
+  }
+}
 
+class Queen extends Component {
+  @Override
+  public boolean canMoveTo(int col, int row) {
+    // checks boundaries if necessary?
+    if (this.getCol() > 24 || this.getCol() < 0 || this.getRow() > 24 || this.getRow() < 0) {
+      return false;
+    } else if ((this.getCol() == col) && (this.getRow() == row)) {
+      return false;
+    } else if (((this.getCol() - col) / (this.getRow() - row)) == 1 || (((this.getCol() - col) / (this.getRow() - row)) == -1) && (this.getCol() == col) || (this.getRow() == row)) {
+      return true;
     }
+      return false;
+  }
+
+  @Override
+  public ImagePattern render() {
+    return new ImagePattern(new Image(" "));
+  }
 }
 
 class Rook extends Component {
-      @Override
-      public boolean canMoveTo(int col, int row) {
+  @Override
+  public boolean canMoveTo(int col, int row) {
+    // checks boundaries if necessary?
+    // hasn't moved
+    if ((!(this.getCol() == col) && (this.getRow() == row)) || ((this.getCol() == col) && !(this.getRow() == row))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-        // checks boundaries if necessary?
-        // hasn't moved
-        if ((!(this.getCol() == col) && (this.getRow() == row)) || ((this.getCol() == col) && !(this.getRow() == row))) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-
-      @Override
-      public void render() {
-
-      }
+  @Override
+  public ImagePattern render() {
+    return new ImagePattern(new Image(" "));
+  }
 }
