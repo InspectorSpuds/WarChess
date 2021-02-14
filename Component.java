@@ -1,5 +1,19 @@
 package sample.Lib;
+/**
+       white king
+       white queen
+       white rook
+       white bishop
+       white knight
+       white pawn
+       black king
+       black queen
+       black rook
+       black bishop
+       black knight
+       black pawn
 
+*/
 public abstract class Component {
     private abstract String imagePath; //the path to the piece image ie. "sample.lin.images.(place image here)"
     private final int NEWRULE_BOARD_LENGTH = 25; //size of the new board's length
@@ -33,8 +47,15 @@ public abstract class Component {
     public int getCol() {
         return col;
     }
+    
+    public void setRow(int row) {
+        this.row = row;
+    }
 
-    // NOTE: col and row are private so we will need a getter function to access them
+    public void setColumn(int col) {
+        this.col = col;
+    }
+    
     // bishop can only go diagonal (forward or backward), cannot jump over other pieces, has access to only half the squares on the board
     // kings bishop, queen’s bishop
     // Due to diagonal movement, each bishop remains on either the white or black squares
