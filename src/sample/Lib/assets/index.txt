@@ -10,3 +10,5 @@ queen_black
 queen_white
 rook_black
 rook_white
+triangle_white
+triangle_black

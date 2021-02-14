@@ -92,6 +92,33 @@ class Pawn extends Component {
   }
 }
 
+class King extends Component {
+  public King(Color color) {
+    this.color = color;
+  }
+
+  @Override
+  public boolean canMoveTo(int col, int row) {
+    if(col <= getCol() + 1 && col >= getCol() - 1 && row <= getRow() + 1 && row >= getRow() - 1) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public ImagePattern render() {
+    if(this.color == Color.WHITE) {
+      return new ImagePattern(new Image("sample/Lib/assets/king_white.png"));
+    } else {
+      return new ImagePattern(new Image("sample/Lib/assets/king_black.png"));
+    }
+  }
+
+  public boolean isKing() {
+    return true;
+  }
+}
+
 class Knight extends Component {
 
   @Override
@@ -214,6 +241,10 @@ class Rook extends Component {
 }
 
 class Boat extends Component {
+  public Boat(Color color) {
+    this.color = color;
+  }
+
   @Override
   public boolean canMoveTo(int col, int row) {
     if (this.tileHolder.pieces[col][row].isRiverTile()) {
@@ -226,6 +257,10 @@ class Boat extends Component {
 
   @Override
   public ImagePattern render() {
-    return new ImagePattern(new Image(""));
+    if (this.color == Color.WHITE) {
+      return new ImagePattern(new Image("sample/Lib/assets/triangle_white.png"));
+    } else {
+      return new ImagePattern(new Image("sample/Lib/assets/triangle_black.png"));
+    }
   }
 }

@@ -27,9 +27,10 @@ import static sample.Lib.Component.Color.WHITE;
 public class WarChessGame  {
   private GridPane board; //the actual grid object itself that renders the pieces
   private Label nextTurn;
-  private ArrayList<Component> whitePieces = new ArrayList<>();
-  private ArrayList<Component> blackPieces = new ArrayList<>();
-
+  private ArrayList<Component> whitePieces;
+  private ArrayList<Component> blackPieces;
+  King whiteKing = new King(Component.Color.WHITE);
+  King blackKing = new King(Component.Color.BLACK);
   BoardTile[][] pieces; //the board representation of the game
   private final int NEWRULE_BOARD_LENGTH = 25;
   private final int REGULAR_BOARD_LENGTH = 8;
@@ -50,16 +51,26 @@ public class WarChessGame  {
 
    **/
   public WarChessGame(int squareLengthCells, GridPane pane, Label nextTurn) throws IOException {
-    int randRow;
-    int randCol;
+    this.whitePieces = new ArrayList<>();
+    this.blackPieces = new ArrayList<>();
     this.board = pane;
     this.pieces = new BoardTile[squareLengthCells][squareLengthCells];
+
     Random rand = new Random();
     this.nextTurn = nextTurn;
     riverNode = new RiverTile(40,40,rand.nextInt(18)+6, rand.nextInt(18)+6);
     //seed chess board with tiles
     initRiverTiles();
     establishListeners();
+
+    int randRow1 = rand.nextInt(NEWRULE_BOARD_LENGTH);
+    int randCol1 = rand.nextInt(NEWRULE_BOARD_LENGTH);
+    int randRow2 = rand.nextInt(NEWRULE_BOARD_LENGTH);
+    int randCol2 = rand.nextInt(NEWRULE_BOARD_LENGTH);
+    this.pieces[randRow1][randCol1].setComponent(whiteKing);
+    this.pieces[randRow2][randCol2].setComponent(blackKing);
+    this.pieces[randRow1][randCol1].render();
+    this.pieces[randRow2][randCol2].render();
   }
 
   public void establishListeners() throws IOException {
@@ -71,7 +82,7 @@ public class WarChessGame  {
         }
         else if(this.pieces[i][j] == null) {
           this.pieces[i][j] = new BoardTile(40, 40, i, j);
-          this.pieces[i][j].setPieces(this.pieces);
+//          this.pieces[i][j].setPieces(this.pieces);
         }
 
         int row = i, col = j;
@@ -97,7 +108,7 @@ public class WarChessGame  {
             //if game is over
             try {
               //if player wins
-              //gameOver();
+              gameOver();
             } catch (Exception e) { e.printStackTrace(); }
           }
         });
@@ -113,7 +124,12 @@ public class WarChessGame  {
       //assign last row and col
       this.row2 = row;
       this.col2 = col;
-      move(); //move piece if possible
+//      if (this.pieces[row1][col1].hasPiece()) {
+//        if (this.pieces[row1][col1].canMoveTo(this.col2, this.row2)) {
+//          move(); //move piece if possible
+//        }
+//      }
+      move();
       this.boardClickedCount = 0;
       //reset piece states
       this.col1 = 0;
@@ -162,25 +178,35 @@ public class WarChessGame  {
     //or if the color of the piece selected is different than the
     //player's given piece color or if both tiles are empty
     //or if the piece clicked again is the same
-    if(this.pieces[col1][row1].hasPiece() && ((row1 != row2) && (col1 != col2))) {
+//    if(this.pieces[row1][col1].hasPiece() && ((row1 != row2) && (col1 != col2))) {
+//      System.out.println("Processing");
+//      if (!this.pieces[this.row2][this.col2].hasPiece() && ((row1 != row2) && (col1 != col2))) {
+//        //remove and replace pieces
+//        oldPiece = this.pieces[row1][col1].removePiece();
+//        this.pieces[row2][col2].movePiece(oldPiece);
+//        this.pieces[row2][col2].render();
+//        //increment turn counter if move successful
+//        incrementTurn();
+//      } else if(this.pieces[this.row2][this.col2].hasPiece()  && playerColor(currentPlayer) != this.pieces[this.row2][this.col2].getColor()) {
+//        //remove and replace pieces
+//        oldPiece = this.pieces[row1][col1].removePiece();
+//        this.pieces[row2][col2].movePiece(oldPiece);
+//        this.pieces[row2][col2].render();
+//        //increment turn counter if move successful
+//        incrementTurn();
+//        nextTurn.setText("Player " + getCurrentPlayer() + "'s turn");
+//      }
+//    }
+    if(this.pieces[row1][col1].hasPiece() && ((row1 != row2) && (col1 != col2))) {
       System.out.println("Processing");
-      if (!this.pieces[this.col2][this.row2].hasPiece() && ((row1 != row2) && (col1 != col2))) {
-        //remove and replace pieces
-        oldPiece = this.pieces[col1][row1].removePiece();
-        this.pieces[col2][row2].movePiece(oldPiece);
-        this.pieces[col2][row2].render();
-        //increment turn counter if move successful
-        incrementTurn();
-      } else if(this.pieces[this.col2][this.row2].hasPiece()  && playerColor(currentPlayer) != this.pieces[this.col2][this.row2].getColor()) {
-        //remove and replace pieces
-        oldPiece = this.pieces[col1][row1].removePiece();
-        this.pieces[col2][row2].movePiece(oldPiece);
-        this.pieces[col2][row2].render();
-        //increment turn counter if move successful
-        incrementTurn();
-        nextTurn.setText("Player " + getCurrentPlayer() + "'s turn");
-      }
+      oldPiece = this.pieces[row1][col1].removePiece();
+      this.pieces[row2][col2].movePiece(oldPiece);
+      this.pieces[row2][col2].render();
+      //increment turn counter if move successful
+      incrementTurn();
+      nextTurn.setText("Player " + getCurrentPlayer() + "'s turn");
     }
+
     this.pieces[this.row1][this.col1].resetColor();
     this.pieces[this.row2][this.col2].resetColor();
   }
@@ -212,11 +238,64 @@ public class WarChessGame  {
   }
 
   public boolean inCheck() {
-    return true;
+    if(getCurrentPlayer() == 1) {
+      //check if any pieces can move to the king space
+      for(int i  = 0; i < this.blackPieces.size(); i++) {
+        if(this.blackPieces.get(i) == null && this.blackPieces.get(i).canMoveTo(whiteKing.getCol(), whiteKing.getRow())) {
+          return true;
+        }
+      }
+    } else {
+      for(int i  = 0; i < this.whitePieces.size(); i++) {
+        if(this.whitePieces.get(i) == null && this.whitePieces.get(i).canMoveTo(blackKing.getCol(), blackKing.getRow())) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   public boolean outOfMoves() {
-    return true;
+    //if
+    int kingSpaces = 9;
+    int kingRow;
+    int kingCol;
+    Component nextPiece;
+    boolean[][] taken = new boolean[3][3];
+    if(currentPlayer == 1) {
+      kingRow = whiteKing.getRow();
+      kingCol = whiteKing.getCol();
+      for(int i  = 0; i < this.blackPieces.size(); i++) {
+        nextPiece = blackPieces.get(i);
+        if(nextPiece !=null) {
+          for(int mod1 = -1; mod1< 2; mod1++) {
+            for(int mod2 = -1; mod2 < 2; mod2++) {
+              if(nextPiece.canMoveTo(mod1+kingCol, mod2 +kingRow) && !taken[mod1+1][mod2+1]){
+                kingSpaces--;
+                taken[mod1+1][mod2+1] = true;
+              }
+            }
+          }
+        }
+      }
+    } else {
+      kingRow = blackKing.getRow();
+      kingCol = blackKing.getCol();
+      for(int i  = 0; i < this.whitePieces.size(); i++) {
+        nextPiece =whitePieces.get(i);
+        if(nextPiece !=null) {
+          for(int mod1 = -1; mod1< 2; mod1++) {
+            for(int mod2 = -1; mod2 < 2; mod2++) {
+              if(nextPiece.canMoveTo(mod1+kingCol, mod2 +kingRow) && !taken[mod1+1][mod2+1]) {
+                kingSpaces--;
+                taken[mod1+1][mod2+1] = true;
+              }
+            }
+          }
+        }
+      }
+    }
+    return kingSpaces == 0;
   }
 
   public void initRiverTiles() {
@@ -266,6 +345,10 @@ public class WarChessGame  {
     map.put("queen_white", new Queen(Component.Color.WHITE));
     map.put("rook_black", new Rook(Component.Color.BLACK));
     map.put("rook_white", new Rook(Component.Color.WHITE));
+    map.put("king_black", new King(Component.Color.BLACK));
+    map.put("king_white", new King(Component.Color.WHITE));
+    map.put("triangle_white", new Boat(Component.Color.WHITE));
+    map.put("triangle_black", new Boat(Component.Color.BLACK));
     return map;
   }
 }
