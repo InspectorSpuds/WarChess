@@ -25,11 +25,15 @@ public class Main extends Application {
         this.primaryStage.setScene(new Scene(initial));
         this.primaryStage.show();
 
-        changeScene("UI/Entry.fxml");
+        changeScene("UI/EntryScene.fxml");
     }
 
     public static void changeScene(String fxml) throws IOException {
         Parent root = FXMLLoader.load(Main.class.getResource(fxml));
         primaryStage.getScene().setRoot(root);
+    }
+
+    public static String getResource(String resource) {
+        return Main.class.getResource(resource).toString();
     }
 }
