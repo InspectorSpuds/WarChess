@@ -33,7 +33,9 @@ public class BoardTile extends Rectangle {
 
     public void resetColor() {
       //if the tile color is black
-      if((this.row+this.col) % 2 == 1) {
+      if (hasPiece()) {
+        this.setFill(piece.render());
+      } else if((this.row+this.col) % 2 == 1) {
         this.setFill(Color.GRAY);
       //if the tie color is white
       } else {
@@ -81,8 +83,8 @@ public class BoardTile extends Rectangle {
     this.piece.tileHolder = this;
   }
 
-  public boolean pieceIsKing() {
-    return  false;
+  public boolean isKing() {
+    return false;
   }
 
   public Component getComponent() {
@@ -93,7 +95,9 @@ public class BoardTile extends Rectangle {
     return false;
   }
 
-  public void render() {}
+  public void render() {
+    this.setFill(this.piece.render());
+  }
 
   public void setPieces(BoardTile[][] pieces) {
     this.pieces = pieces;

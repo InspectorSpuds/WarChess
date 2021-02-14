@@ -76,7 +76,19 @@ class Pawn extends Component {
 
   @Override
   public ImagePattern render() {
-    return null;
+    if (this.color == Color.WHITE) {
+      return new ImagePattern(new Image("sample/Lib/assets/pawn_white.png"));
+    } else {
+      return new ImagePattern(new Image("sample/Lib/assets/pawn_black.png"));
+    }
+  }
+
+  public boolean isKing() {
+    return false;
+  }
+
+  public Pawn(Color color) {
+    this.color = color;
   }
 }
 
@@ -95,7 +107,19 @@ class Knight extends Component {
 
   @Override
   public ImagePattern render() {
-    return null;
+    if (this.color == Color.WHITE) {
+      return new ImagePattern(new Image("sample/Lib/assets/knight_white.png"));
+    } else {
+      return new ImagePattern(new Image("sample/Lib/assets/knight_black.png"));
+    }
+  }
+
+  public boolean isKing() {
+    return false;
+  }
+
+  public Knight(Color color) {
+    this.color = color;
   }
 }
 
@@ -111,7 +135,19 @@ class Bishop extends Component {
 
   @Override
   public ImagePattern render() {
-    return new ImagePattern(new Image(" "));
+    if (this.color == Color.WHITE) {
+      return new ImagePattern(new Image("sample/Lib/assets/bishop_white.png"));
+    } else {
+      return new ImagePattern(new Image("sample/Lib/assets/bishop_black.png"));
+    }
+  }
+
+  public boolean isKing() {
+    return false;
+  }
+
+  public Bishop(Color color) {
+    this.color = color;
   }
 }
 
@@ -131,7 +167,19 @@ class Queen extends Component {
 
   @Override
   public ImagePattern render() {
-    return new ImagePattern(new Image(" "));
+    if (this.color == Color.WHITE) {
+      return new ImagePattern(new Image("sample/Lib/assets/queen_white.png"));
+    } else {
+      return new ImagePattern(new Image("sample/Lib/assets/queen_black.png"));
+    }
+  }
+
+  public boolean isKing() {
+    return false;
+  }
+
+  public Queen(Color color) {
+    this.color = color;
   }
 }
 
@@ -149,7 +197,19 @@ class Rook extends Component {
 
   @Override
   public ImagePattern render() {
-    return new ImagePattern(new Image(" "));
+    if (this.color == Color.WHITE) {
+      return new ImagePattern(new Image("sample/Lib/assets/rook_white.png"));
+    } else {
+      return new ImagePattern(new Image("sample/Lib/assets/rook_black.png"));
+    }
+  }
+
+  public boolean isKing() {
+    return false;
+  }
+
+  public Rook(Color color) {
+    this.color = color;
   }
 }
 

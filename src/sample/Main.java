@@ -9,7 +9,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class Main extends Application {
   private final static String MAINUI_PATH = "UI/MainUI.fxml";
@@ -22,7 +24,8 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
     primaryStage.setOnCloseRequest(t-> popup.close());
-    Parent root = FXMLLoader.load(getClass().getResource(ENTRYUI_PATH));
+    URL url = Main.class.getResource(ENTRYUI_PATH);
+    Parent root = FXMLLoader.load(url);
     primaryStage.setTitle("War Chess");
     primaryStage.setScene(new Scene(root, 600, 600));
     primaryStage.setMinHeight(MIN_HEIGHT);
@@ -50,7 +53,8 @@ public class Main extends Application {
   }
 
   public static void start() throws IOException {
-    Parent root = FXMLLoader.load(Main.class.getResource(MAINUI_PATH));
+    URL url = Main.class.getResource(MAINUI_PATH);
+    Parent root = FXMLLoader.load(url);
     primary.setTitle("War Chess");
     primary.setScene(new Scene(root, 600, 600));
     primary.setMinHeight(MIN_HEIGHT);
@@ -59,7 +63,8 @@ public class Main extends Application {
   }
 
   public static void startScreen() throws Exception {
-    Parent root = FXMLLoader.load(Main.class.getResource(ENTRYUI_PATH));
+    URL url = Main.class.getResource(ENTRYUI_PATH);
+    Parent root = FXMLLoader.load(url);
     primary.setTitle("War Chess");
     primary.setScene(new Scene(root, 600, 600));
     primary.setMinHeight(MIN_HEIGHT);

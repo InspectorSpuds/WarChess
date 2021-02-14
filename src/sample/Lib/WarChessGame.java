@@ -105,7 +105,7 @@ public class WarChessGame  {
   public void handleInput(int row, int col) {
     //if board count at max, move piece and then reset
     if(boardClickedCount == 1) {
-      //assign lasst row and col
+      //assign last row and col
       this.row2 = row;
       this.col2 = col;
       move(); //move piece if possible
