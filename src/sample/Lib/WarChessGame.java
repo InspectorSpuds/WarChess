@@ -28,7 +28,8 @@ public class WarChessGame  {
   private Label nextTurn;
   private ArrayList<Component> whitePieces;
   private ArrayList<Component> blackPieces;
-
+  King whiteKing;
+  King blackKing;
   BoardTile[][] pieces; //the board representation of the game
   private final int NEWRULE_BOARD_LENGTH = 25;
   private final int REGULAR_BOARD_LENGTH = 8;
@@ -51,6 +52,8 @@ public class WarChessGame  {
   public WarChessGame(int squareLengthCells, GridPane pane, Label nextTurn) throws IOException {
     int randRow;
     int randCol;
+    this.blackPieces = new ArrayList<>();
+    this.whitePieces = new ArrayList<>();
     this.board = pane;
     this.pieces = new BoardTile[squareLengthCells][squareLengthCells];
     Random rand = new Random();
@@ -59,6 +62,7 @@ public class WarChessGame  {
     //seed chess board with tiles
     initRiverTiles();
     establishListeners();
+    addPieces();
   }
 
   public void establishListeners() throws IOException {
@@ -70,10 +74,6 @@ public class WarChessGame  {
         }
         else if(this.pieces[i][j] == null) {
           this.pieces[i][j] = new BoardTile(40, 40, i, j);
-          if(this.pawn == null) {
-            System.out.println("Empty");
-          }
-          this.pieces[i][j].movePiece(pawn);
           this.pieces[i][j].render();
         }
 
@@ -88,9 +88,9 @@ public class WarChessGame  {
         * */
         this.pieces[i][j].setOnMouseClicked(t -> {
           //get object clicked
-
           BoardTile tile = (BoardTile)(t.getSource());
           //if in check and the moved piece is a king
+          System.out.println(tile.getRow() + " "+ tile.getCol());
           if(inCheck) {
             handleInput(tile.getRow(), tile.getCol());
           }
@@ -100,7 +100,7 @@ public class WarChessGame  {
             //if game is over
             try {
               //if player wins
-              //gameOver();
+              gameOver();
             } catch (Exception e) { e.printStackTrace(); }
           }
         });
@@ -119,6 +119,8 @@ public class WarChessGame  {
       move(); //move piece if possible
       this.boardClickedCount = 0;
       //reset piece states
+      this.pieces[col1][row1].resetColor();
+      this.pieces[col2][row2].render();
       this.col1 = 0;
       this.col2 = 0;
       this.row1 = 0;
@@ -130,6 +132,7 @@ public class WarChessGame  {
       this.pieces[row][col].setToClicked();
       this.boardClickedCount++;
     }
+
   }
 
   private void addPieces() {
@@ -165,8 +168,8 @@ public class WarChessGame  {
         nextTurn.setText("Player " + getCurrentPlayer() + "'s turn");
       }
     }
-    this.pieces[this.row1][this.col1].resetColor();
-    this.pieces[this.row2][this.col2].resetColor();
+    this.pieces[col2][row2].resetColor();
+    this.pieces[col1][row1].resetColor();
   }
 
   //moves to next player turn
@@ -196,11 +199,64 @@ public class WarChessGame  {
   }
 
   public boolean inCheck() {
-    return true;
+    if(getCurrentPlayer() == 1) {
+      //check if any pieces can move to the king space
+      for(int i  = 0; i < this.blackPieces.size(); i++) {
+        if(this.blackPieces.get(i) == null && this.blackPieces.get(i).canMoveTo(whiteKing.getCol(), whiteKing.getRow())) {
+          return true;
+        }
+      }
+    } else {
+      for(int i  = 0; i < this.whitePieces.size(); i++) {
+        if(this.whitePieces.get(i) == null && this.whitePieces.get(i).canMoveTo(blackKing.getCol(), blackKing.getRow())) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   public boolean outOfMoves() {
-    return true;
+    //if
+    int kingSpaces = 9;
+    int kingRow;
+    int kingCol;
+    Component nextPiece;
+    boolean[][] taken = new boolean[3][3];
+    if(currentPlayer == 1) {
+      kingRow = whiteKing.getRow();
+      kingCol = whiteKing.getCol();
+      for(int i  = 0; i < this.blackPieces.size(); i++) {
+        nextPiece = blackPieces.get(i);
+        if(nextPiece !=null) {
+          for(int mod1 = -1; mod1< 2; mod1++) {
+            for(int mod2 = -1; mod2 < 2; mod2++) {
+              if(nextPiece.canMoveTo(mod1+kingCol, mod2 +kingRow) && !taken[mod1+1][mod2+1]){
+                kingSpaces--;
+                taken[mod1+1][mod2+1] = true;
+              }
+            }
+          }
+        }
+      }
+    } else {
+      kingRow = blackKing.getRow();
+      kingCol = blackKing.getCol();
+      for(int i  = 0; i < this.whitePieces.size(); i++) {
+        nextPiece =whitePieces.get(i);
+        if(nextPiece !=null) {
+          for(int mod1 = -1; mod1< 2; mod1++) {
+            for(int mod2 = -1; mod2 < 2; mod2++) {
+              if(nextPiece.canMoveTo(mod1+kingCol, mod2 +kingRow) && !taken[mod1+1][mod2+1]) {
+                kingSpaces--;
+                taken[mod1+1][mod2+1] = true;
+              }
+            }
+          }
+        }
+      }
+    }
+    return kingSpaces == 0;
   }
 
   public void initRiverTiles() {

@@ -34,7 +34,7 @@ public class BoardTile extends Rectangle {
     //if the tile color is black
     if(hasPiece()) {
       this.setFill(piece.render());
-    }else if((this.row+this.col) % 2 == 1) {
+    } else if((this.row+this.col) % 2 == 1) {
       this.setFill(Color.GRAY);//if the tie color is white
     } else {
       this.setFill(Color.WHITE);
@@ -92,7 +92,11 @@ public class BoardTile extends Rectangle {
   }
 
   public void render() {
-    this.setFill(this.piece.render());
+    if(this.hasPiece()) {
+      this.setFill(this.piece.render());
+    } else {
+      this.resetColor();
+    }
   }
 }
 
