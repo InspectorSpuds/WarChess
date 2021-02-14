@@ -3,22 +3,9 @@ package sample.Lib;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 
-/**
- white king
- white queen
- white rook
- white bishop
- white knight
- white pawn
- black king
- black queen
- black rook
- black bishop
- black knight
- black pawn
- */
+import java.awt.*;
+
 public abstract class Component {
   private String imagePath; //the path to the piece image ie. "sample.lin.images.(place image here)"
   private final int NEWRULE_BOARD_LENGTH = 25; //size of the new board's length
@@ -78,15 +65,19 @@ class Pawn extends Component {
   @Override
   public ImagePattern render() {
     if(this.color == Color.WHITE) {
-      return new ImagePattern(new Image("assets/pawn_white.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/pawn_white.png"));
     } else {
-      return new ImagePattern(new Image("assets/pawn_black.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/pawn_black.png"));
     }
   }
 
   @Override
   public boolean isKing() {
     return false;
+  }
+
+  public Pawn(Color color) {
+    this.color = color;
   }
 }
 
@@ -103,9 +94,9 @@ class King extends Component {
   @Override
   public ImagePattern render() {
     if(this.color == Color.WHITE) {
-      return new ImagePattern(new Image("assets/king_white.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/king_white.png"));
     } else {
-      return new ImagePattern(new Image("assets/king_black.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/king_black.png"));
     }
   }
 
@@ -125,9 +116,9 @@ class Knight extends Component {
   @Override
   public ImagePattern render() {
     if(this.color == Color.WHITE) {
-      return new ImagePattern(new Image("assets/knight_white.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/knight_white.png"));
     } else {
-      return new ImagePattern(new Image("assets/knight_black.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/knight_black.png"));
     }
   }
 
@@ -144,15 +135,15 @@ class Bishop extends Component {
     if (((this.getCol() - col) / (this.getRow() - row)) == 1 || (((this.getCol() - col) / (this.getRow() - row)) == -1)) {
       return true;
     }
-      return false;
+    return false;
   }
 
   @Override
   public ImagePattern render() {
     if(this.color == Color.WHITE) {
-      return new ImagePattern(new Image("assets/bishop_white.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/bishop_white.png"));
     } else {
-      return new ImagePattern(new Image("assets/bishop_black.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/bishop_black.png"));
     }
   }
 
@@ -178,7 +169,11 @@ class Queen extends Component {
 
   @Override
   public ImagePattern render() {
-    return new ImagePattern(new Image(" "));
+    if(this.color == Color.WHITE) {
+      return new ImagePattern(new Image("sample/Lib/assets/queen_white.png"));
+    } else {
+      return new ImagePattern(new Image("sample/Lib/assets/queen_black.png"));
+    }
   }
 
   @Override

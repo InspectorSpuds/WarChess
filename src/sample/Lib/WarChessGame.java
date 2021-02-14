@@ -7,6 +7,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import sample.Main;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -41,6 +42,9 @@ public class WarChessGame  {
   private int row2 = 0; //y coordinate of the second clicked tile
   private RiverTile riverNode;
   private int boardClickedCount = 0; //amount of times board clicked
+  Pawn pawn = new Pawn(WHITE);
+
+
   /**
 
    **/
@@ -66,6 +70,11 @@ public class WarChessGame  {
         }
         else if(this.pieces[i][j] == null) {
           this.pieces[i][j] = new BoardTile(40, 40, i, j);
+          if(this.pawn == null) {
+            System.out.println("Empty");
+          }
+          this.pieces[i][j].movePiece(pawn);
+          this.pieces[i][j].render();
         }
 
         int row = i, col = j;
@@ -79,8 +88,8 @@ public class WarChessGame  {
         * */
         this.pieces[i][j].setOnMouseClicked(t -> {
           //get object clicked
-          BoardTile tile = (BoardTile)(t.getSource());
 
+          BoardTile tile = (BoardTile)(t.getSource());
           //if in check and the moved piece is a king
           if(inCheck) {
             handleInput(tile.getRow(), tile.getCol());

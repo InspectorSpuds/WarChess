@@ -91,7 +91,9 @@ public class BoardTile extends Rectangle {
     return false;
   }
 
-  public void render() {}
+  public void render() {
+    this.setFill(this.piece.render());
+  }
 }
 
 class RiverTile extends BoardTile {
