@@ -66,6 +66,7 @@ public class WarChessGame  {
         }
         else if(this.pieces[i][j] == null) {
           this.pieces[i][j] = new BoardTile(40, 40, i, j);
+          this.pieces[i][j].setPieces(this.pieces);
         }
 
         int row = i, col = j;

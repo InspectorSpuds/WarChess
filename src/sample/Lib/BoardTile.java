@@ -15,6 +15,7 @@ public class BoardTile extends Rectangle {
   private Component piece = null;
   private int row;
   private int col;
+  BoardTile[][] pieces = null;
 
   public BoardTile(int length, int width, int row, int col){
     super(length, width);
@@ -70,12 +71,14 @@ public class BoardTile extends Rectangle {
 
   public Component removePiece() {
     Component temp = this.piece;
+    this.piece.tileHolder = null;
     this.piece = null;
     return temp;
   }
 
   public void movePiece(Component oldPiece) {
     this.piece = oldPiece;
+    this.piece.tileHolder = this;
   }
 
   public boolean pieceIsKing() {
@@ -91,6 +94,10 @@ public class BoardTile extends Rectangle {
   }
 
   public void render() {}
+
+  public void setPieces(BoardTile[][] pieces) {
+    this.pieces = pieces;
+  }
 }
 
 class RiverTile extends BoardTile {

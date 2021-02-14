@@ -26,6 +26,7 @@ public abstract class Component {
   private int row; //the row of the component's tile (the y coordinate)
   private int col; //the column of the components's tile (the c coordinate)
   Color color; //color of the piece
+  BoardTile tileHolder = null;
 
   public abstract boolean canMoveTo(int col, int row); //can the piece move to that col and row?
 
@@ -83,6 +84,12 @@ class Knight extends Component {
 
   @Override
   public boolean canMoveTo(int col, int row) {
+    if (col > 24 || col < 0 || row > 24 || row < 0) {
+      return false;
+    } else if ((Math.abs(col - this.getCol()) == 2 && Math.abs(row - this.getRow()) == 1)
+            || (Math.abs(row - this.getRow()) == 2 && Math.abs(col - this.getCol()) == 2)) {
+      return true;
+    }
     return false;
   }
 
@@ -143,5 +150,22 @@ class Rook extends Component {
   @Override
   public ImagePattern render() {
     return new ImagePattern(new Image(" "));
+  }
+}
+
+class Boat extends Component {
+  @Override
+  public boolean canMoveTo(int col, int row) {
+    if (this.tileHolder.pieces[col][row].isRiverTile()) {
+      if (((this.getCol() - col) / (this.getRow() - row)) == 1 || (((this.getCol() - col) / (this.getRow() - row)) == -1)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public ImagePattern render() {
+    return new ImagePattern(new Image(""));
   }
 }
