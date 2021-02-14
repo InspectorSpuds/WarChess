@@ -1,10 +1,7 @@
 package sample.Lib;
 
-
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-
-import java.awt.*;
 
 public abstract class Component {
   private String imagePath; //the path to the piece image ie. "sample.lin.images.(place image here)"
@@ -183,6 +180,7 @@ class Queen extends Component {
 }
 
 class Rook extends Component {
+
   @Override
   public boolean canMoveTo(int col, int row) {
     // checks boundaries if necessary?
@@ -197,9 +195,9 @@ class Rook extends Component {
   @Override
   public ImagePattern render() {
     if(this.color == Color.WHITE) {
-      return new ImagePattern(new Image("assets/rook_white.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/rook_white.png"));
     } else {
-      return new ImagePattern(new Image("assets/rook_black.png"));
+      return new ImagePattern(new Image("sample/Lib/assets/rook_black.png"));
     }
   }
 
