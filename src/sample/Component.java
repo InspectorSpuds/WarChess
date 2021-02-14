@@ -75,10 +75,29 @@ public class Bishop extends Component {
         if (this.col > 24 || this.col < 0 || this.row > 24 || this.row < 0) {
             return false;
         }
-        
+
         // checks that coordinal movement always has slope of +/- 1
         if ( ((this.col - col) / (this.row - row)) == 1 ||
                 ( ((this.col - col) / (this.row - row)) == -1) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+}
+
+public class Rook extends Component {
+    @Override
+    public boolean canMoveTo(int col, int row) {
+
+        // checks boundaries if necessary?
+        if (this.col > 24 || this.col < 0 || this.row > 24 || this.row < 0) {
+            return false;
+        }
+
+        // checks that rooks stays in same column or same row
+        if ( (this.col == col || this.row == row) {
             return true;
 
         } else {
