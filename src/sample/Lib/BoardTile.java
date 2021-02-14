@@ -26,19 +26,20 @@ public class BoardTile extends Rectangle {
   }
 
   //graphical methods:
-    public void setToClicked() {
-      this.setFill(Color.RED);
-    }
+  public void setToClicked() {
+    this.setFill(Color.RED);
+  }
 
-    public void resetColor() {
-      //if the tile color is black
-      if((this.row+this.col) % 2 == 1) {
-        this.setFill(Color.GRAY);
-      //if the tie color is white
-      } else {
-        this.setFill(Color.WHITE);
-      }
+  public void resetColor() {
+    //if the tile color is black
+    if(hasPiece()) {
+      this.setFill(piece.render());
+    }else if((this.row+this.col) % 2 == 1) {
+      this.setFill(Color.GRAY);//if the tie color is white
+    } else {
+      this.setFill(Color.WHITE);
     }
+  }
 
   public void assignLocation(int row, int col) {
     this.row = row;

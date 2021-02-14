@@ -25,11 +25,13 @@ public abstract class Component {
   private final int REGULAR_BOARD_LENGTH = 8; //size of standard board length
   private int row; //the row of the component's tile (the y coordinate)
   private int col; //the column of the components's tile (the c coordinate)
-  Color color; //color of the piece
+  public Color color; //color of the piece
 
   public abstract boolean canMoveTo(int col, int row); //can the piece move to that col and row?
 
   public abstract ImagePattern render(); //puts the image render of the piece on the board
+
+  public abstract boolean isKing();
 
   //moves the piece
   public void moveTo(int col, int row) {
@@ -75,7 +77,41 @@ class Pawn extends Component {
 
   @Override
   public ImagePattern render() {
-    return null;
+    if(this.color == Color.WHITE) {
+      return new ImagePattern(new Image("assets/pawn_white.png"));
+    } else {
+      return new ImagePattern(new Image("assets/pawn_black.png"));
+    }
+  }
+
+  @Override
+  public boolean isKing() {
+    return false;
+  }
+}
+
+class King extends Component {
+
+  @Override
+  public boolean canMoveTo(int col, int row) {
+    if(col <= getCol() + 1 && col >= getCol() - 1 && row <= getRow() + 1 && row >= getRow() - 1) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public ImagePattern render() {
+    if(this.color == Color.WHITE) {
+      return new ImagePattern(new Image("assets/king_white.png"));
+    } else {
+      return new ImagePattern(new Image("assets/king_black.png"));
+    }
+  }
+
+  @Override
+  public boolean isKing() {
+    return true;
   }
 }
 
@@ -88,7 +124,16 @@ class Knight extends Component {
 
   @Override
   public ImagePattern render() {
-    return null;
+    if(this.color == Color.WHITE) {
+      return new ImagePattern(new Image("assets/knight_white.png"));
+    } else {
+      return new ImagePattern(new Image("assets/knight_black.png"));
+    }
+  }
+
+  @Override
+  public boolean isKing() {
+    return false;
   }
 }
 
@@ -104,7 +149,16 @@ class Bishop extends Component {
 
   @Override
   public ImagePattern render() {
-    return new ImagePattern(new Image(" "));
+    if(this.color == Color.WHITE) {
+      return new ImagePattern(new Image("assets/bishop_white.png"));
+    } else {
+      return new ImagePattern(new Image("assets/bishop_black.png"));
+    }
+  }
+
+  @Override
+  public boolean isKing() {
+    return false;
   }
 }
 
@@ -126,6 +180,11 @@ class Queen extends Component {
   public ImagePattern render() {
     return new ImagePattern(new Image(" "));
   }
+
+  @Override
+  public boolean isKing() {
+    return false;
+  }
 }
 
 class Rook extends Component {
@@ -142,6 +201,15 @@ class Rook extends Component {
 
   @Override
   public ImagePattern render() {
-    return new ImagePattern(new Image(" "));
+    if(this.color == Color.WHITE) {
+      return new ImagePattern(new Image("assets/rook_white.png"));
+    } else {
+      return new ImagePattern(new Image("assets/rook_black.png"));
+    }
+  }
+
+  @Override
+  public boolean isKing() {
+    return false;
   }
 }
