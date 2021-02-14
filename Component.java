@@ -58,7 +58,12 @@ public abstract class Component {
 public class Queen extends Component {
     @Override
     public boolean canMoveTo(int col, int row) {
-
+     
+	    // checks boundaries if necessary?
+        if (this.col > 24 || this.col < 0 || this.row > 24 || this.row < 0) {
+            return false;
+     
+}
   
 }
 
