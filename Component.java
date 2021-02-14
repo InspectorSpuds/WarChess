@@ -36,8 +36,8 @@ public abstract class Component {
 
     // NOTE: col and row are private so we will need a getter function to access them
     // bishop can only go diagonal (forward or backward), cannot jump over other pieces, has access to only half the squares on the board
-// kings bishop, queen’s bishop
-// Due to diagonal movement, each bishop remains on either the white or black squares
+    // kings bishop, queen’s bishop
+    // Due to diagonal movement, each bishop remains on either the white or black squares
     public class Bishop extends Component {
         @Override
         public boolean canMoveTo(int col, int row) {
