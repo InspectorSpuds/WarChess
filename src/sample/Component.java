@@ -67,6 +67,21 @@ public class Knight extends Component {
     }
 }
 
+public class Bishop extends Component {
+    @Override
+    public boolean canMoveTo(int col, int row) {
+
+        // checks that coordinal movement always has slope of +/- 1
+        if ( ((this.col - col) / (this.row - row)) == 1 ||
+                ( ((this.col - col) / (this.row - row)) == -1) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+}
+
 public class King extends Component {
     @Override
     public boolean canMoveTo(int col, int row) {
