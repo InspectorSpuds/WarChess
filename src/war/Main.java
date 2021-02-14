@@ -1,3 +1,5 @@
+package war;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent initial = FXMLLoader.load(getClass().getResource("war/UI/Splash.fxml"));
+        Parent initial = FXMLLoader.load(Main.class.getResource("UI/Splash.fxml"));
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("WarChess");
@@ -23,7 +25,7 @@ public class Main extends Application {
         this.primaryStage.setScene(new Scene(initial));
         this.primaryStage.show();
 
-        changeScene("war/UI/Entry.fxml");
+        changeScene("UI/Entry.fxml");
     }
 
     public static void changeScene(String fxml) throws IOException {
