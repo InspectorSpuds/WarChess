@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox alignment="CENTER" prefHeight="117.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="234.0" text="War Chess">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label contentDisplay="CENTER" text="Where chess meets reality" textFill="#a49f9f" />
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="446.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Play one computer game" />
+            <Button mnemonicParsing="false" text="Play online game" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Play local multiplayer game" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

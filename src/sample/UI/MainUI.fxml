@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+           <Tab text="Game">
+               <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                   <center>
+                   <BorderPane layoutY="2.0" prefHeight="565.0" prefWidth="600.0">
+                       <center>
+                           <ScrollPane hbarPolicy="ALWAYS" prefHeight="340.0" prefWidth="600.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="581.0">
+                                   <GridPane fx:id="board" layoutX="1.0" prefHeight="440.0" prefWidth="579.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+                                   </GridPane>
+                               </AnchorPane>
+                           </ScrollPane>
+                       </center>
+                       <bottom>
+                           <HBox alignment="CENTER" prefHeight="63.0" prefWidth="500.0" spacing="40.0" BorderPane.alignment="CENTER">
+                               <Button mnemonicParsing="false" text="Go Backwards" />
+                               <Button mnemonicParsing="false" text="Confirm Move" />
+                               <Button mnemonicParsing="false" text="Go Forward" />
+                           </HBox>
+                       </bottom>
+                       <top>
+                           <VBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="203.0" text="Player _'s turn">
+                                   <font>
+                                       <Font size="24.0" />
+                                   </font>
+                               </Label>
+                           </VBox>
+                       </top>
+                   </BorderPane>
+                   </center>
+               </BorderPane>
+           </Tab>
+           <Tab text="Game Settings">
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+           </Tab>
+       </TabPane>
+   </center>
+</BorderPane>
