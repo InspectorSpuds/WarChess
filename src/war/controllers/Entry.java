@@ -18,7 +18,7 @@ public class Entry {
 
     @FXML
     private void playComp() throws IOException {
-        Main.changeScene("UI/GameScene.fxml");
+        Main.changeScene("UI/GameUI.fxml");
     }
 
     @FXML
