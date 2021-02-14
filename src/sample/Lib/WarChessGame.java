@@ -27,8 +27,8 @@ import static sample.Lib.Component.Color.WHITE;
 public class WarChessGame  {
   private GridPane board; //the actual grid object itself that renders the pieces
   private Label nextTurn;
-  private ArrayList<Component> whitePieces;
-  private ArrayList<Component> blackPieces;
+  private ArrayList<Component> whitePieces = new ArrayList<>();
+  private ArrayList<Component> blackPieces = new ArrayList<>();
 
   BoardTile[][] pieces; //the board representation of the game
   private final int NEWRULE_BOARD_LENGTH = 25;
@@ -133,7 +133,7 @@ public class WarChessGame  {
       this.boardClickedCount++;
 
       // prompt to add pieces
-      String key = AddDialog.showDialog();
+      String key = AddDialog.showDialog(playerColor(currentPlayer));
       addComponent(row, col, key);
     }
   }
@@ -239,7 +239,7 @@ public class WarChessGame  {
   }
 
   //gets the color that the current player num can move
-  private Component.Color playerColor(int x) {
+  public Component.Color playerColor(int x) {
     if(x == 1) {
       return Component.Color.WHITE;
     } else {

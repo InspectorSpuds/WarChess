@@ -39,7 +39,7 @@ public abstract class Component {
     render();
   }
 
-  enum Color {
+  public enum Color {
     BLACK, WHITE;
   }
 

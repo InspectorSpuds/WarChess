@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.util.Pair;
+import sample.Lib.Component;
 
 import java.io.IOException;
 import java.net.URI;
@@ -18,15 +19,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 public class AddDialog {
     static ArrayList<Pair<String, Image>> choices;
+    static ArrayList<ImageView> whitePieces;
+    static ArrayList<ImageView> blackPieces;
     static Text selected = new Text();
 
     static {
         try {
             choices = populateList();
+            whitePieces = popWhite();
+            blackPieces = popBlack();
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
@@ -47,17 +53,43 @@ public class AddDialog {
         }
     }
 
-    public static String showDialog() {
+    private static ArrayList<ImageView> popWhite() {
+        ArrayList<ImageView> images = new ArrayList<>();
+        for(Pair<String, Image> pair: choices) {
+            if (pair.getKey().contains("white")) {
+                ImageView tmp = new ImageView(pair.getValue());
+                tmp.setOnMouseClicked(event -> {
+                    selected.setText(pair.getKey());
+                });
+                images.add(tmp);
+            }
+        }
+        return images;
+    }
+
+    private static ArrayList<ImageView> popBlack() {
+        ArrayList<ImageView> images = new ArrayList<>();
+        for(Pair<String, Image> pair: choices) {
+            if (pair.getKey().contains("black")) {
+                ImageView tmp = new ImageView(pair.getValue());
+                tmp.setOnMouseClicked(event -> {
+                    selected.setText(pair.getKey());
+                });
+                images.add(tmp);
+            }
+        }
+        return images;
+    }
+
+    public static String showDialog(Component.Color color) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("WarChess");
 
-        ImageView[] images = new ImageView[choices.size()];
-        for (int i = 0; i < images.length; i++) {
-            Pair<String, Image> pair = choices.get(i);
-            images[i] = new ImageView(pair.getValue());
-            images[i].setOnMouseClicked(event -> {
-                selected.setText(pair.getKey());
-            });
+        ArrayList<ImageView> images = null;
+        if (color == Component.Color.BLACK) {
+            images = blackPieces;
+        } else if (color == Component.Color.WHITE) {
+            images = whitePieces;
         }
 
         HBox box = new HBox();
