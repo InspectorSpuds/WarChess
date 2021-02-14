@@ -87,6 +87,12 @@ public class BoardTile extends Rectangle {
     return false;
   }
 
+  public void setComponent(Component comp) {
+    if (!hasPiece()) {
+      this.piece = comp;
+    }
+  }
+
   public Component getComponent() {
     return this.piece;
   }

@@ -5,10 +5,12 @@ import javafx.scene.control.Labeled;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import sample.AddDialog;
 import sample.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import static sample.Lib.Component.Color.WHITE;
@@ -41,6 +43,9 @@ public class WarChessGame  {
   private int row2 = 0; //y coordinate of the second clicked tile
   private RiverTile riverNode;
   private int boardClickedCount = 0; //amount of times board clicked
+
+  HashMap<String, Component> componentMap = createComponentMap();
+
   /**
 
    **/
@@ -116,16 +121,35 @@ public class WarChessGame  {
       this.row1 = 0;
       this.row2 = 0;
       //reset piece color
+    } else if (this.pieces[row][col].hasPiece()) {
+      this.col1 = col;
+      this.row1 = row;
+      this.pieces[row][col].setToClicked();
+      this.boardClickedCount++;
     } else if(!this.pieces[row][col].hasPiece()) {
       this.col1 = col;
       this.row1 = row;
       this.pieces[row][col].setToClicked();
       this.boardClickedCount++;
+
+      // prompt to add pieces
+      String key = AddDialog.showDialog();
+      addComponent(row, col, key);
     }
   }
 
-  private void addPieces() {
+  private void addComponent(int row, int col, String key) {
+    if (key != null) {
+      Component it = componentMap.get(key);
+      this.pieces[row][col].setComponent(it);
+      this.pieces[row][col].render();
 
+      if (key.contains("white")) {
+        whitePieces.add(it);
+      } else if (key.contains("black")) {
+        blackPieces.add(it);
+      }
+    }
   }
 
   /**
@@ -228,5 +252,20 @@ public class WarChessGame  {
     ArrayList<BoardTile> lane2;
     ArrayList<BoardTile> lane3;
     ArrayList<BoardTile> lane4;
+  }
+
+  private HashMap<String, Component> createComponentMap() {
+    HashMap<String, Component> map = new HashMap<>();
+    map.put("bishop_black", new Bishop(Component.Color.BLACK));
+    map.put("bishop_white", new Bishop(Component.Color.WHITE));
+    map.put("knight_black", new Knight(Component.Color.BLACK));
+    map.put("knight_white", new Knight(Component.Color.WHITE));
+    map.put("pawn_black", new Pawn(Component.Color.BLACK));
+    map.put("pawn_white", new Pawn(Component.Color.WHITE));
+    map.put("queen_black", new Queen(Component.Color.BLACK));
+    map.put("queen_white", new Queen(Component.Color.WHITE));
+    map.put("rook_black", new Rook(Component.Color.BLACK));
+    map.put("rook_white", new Rook(Component.Color.WHITE));
+    return map;
   }
 }
