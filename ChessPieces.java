@@ -1,6 +1,7 @@
 package sample.Lib;
+import javafx.scene.image.ImageView;
 
-public abstract class Component {
+public abstract class ChessPieces {
   private abstract String imagePath; //the path to the piece image ie. "sample.lin.images.(place image here)"
   private final int NEWRULE_BOARD_LENGTH = 25; //size of the new board's length
   private final int REGULAR_BOARD_LENGTH = 8; //size of standard board length
@@ -21,4 +22,6 @@ public abstract class Component {
   enum Color {
     BLACK, WHITE;
   }
+  
+  
 }
